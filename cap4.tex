@@ -1,0 +1,77 @@
+\chapter{Solución: Modelo y Rediseño}
+
+Dentro de las opciones mencionadas en un problema de optimización combinatorial se encuentra la reducción del espacio de soluciones. Es decir, un buen entendimiento y modelamiento del problema deberían implicar un espacio mínimo pero no necesariamente, y es por ello que pueden existir aun formas de abordar de esta manera el rediseño.
+
+En un recuento de UD¿s un alumno que esta cercano a titularse posee aproximadamente 70 ramos. Un plan de titulo profesional posee alrededor de 18 subplanes los cuales poseen distintas reglas y por ende los ramos antes descritos pueden utilizarse o no, dependiendo estas normas. Aun así, pensando en la flexibilización inicial que se hizo en la sección ¿Problema¿, si los ramos poseen en promedio 3 lugares donde ser ocupados tendríamos un numero cercano a $3^70$ combinaciones que recorrer para decidir
+cual seria la solución correcta. Si se eliminara un ramo se tendría 3 veces menos combinaciones.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.4]{imagenes/9}
+	\caption{}
+	\label{}
+\end{figure}
+
+En la imagen anterior se observan las reglas de los planes de la tercera versión de la carrera de ingeniería civil en computación. Han sidos dispuestos como un árbol de acuerdo a la dependencia que tienen entre ellos ya que, recordando, un plan puede tener subplanes dentro de él. Si desde la raíz del árbol se va bajando de nivel se puede observar que se sigue una linea donde la regla de los planes es ¿todo", es decir, se deben cumplir obligatoriamente todos los elementos pertenecientes a esa
+linea. Por ende, todos los ramos que se encuentran dentro de esos planes podrían verificarse en un inicio reduciendo la cantidad de ramos que pasarían posteriormente por el algoritmo.
+
+Si bien se puede pensar que esta es una reducción considerable ya que se puede sacar del calculo cerca del 50\% de los ramos, de todas formas no es del todo significativa ya que comúnmente estos ramos son considerados obligatorios dentro del modelamiento de los planes y por ende poseen a lo mas dos lugares donde ser ocupados. Además, se debe tener precaución debido a que, por ejemplo, los ramos dentro del plan de regla ¿todo" que esta en el nivel inferior poseen un plan padre que tiene regla
+¿contar¿ y podría cumplirse sin la necesidad de aprobar los ramos del subplan.
+
+Siguiendo la misma linea pueden reducirse los ramos que poseen un lugar donde ser ocupados debido a que si se agregaran al procesamiento del algoritmo, este considerará que pueden ocuparse o dejarse fuera del calculo, y por ende no se estaría en presencia de tan solo un lugar donde ser ocupado, si no que dos. Eso sí existe un diferencia entre este tipo de ramos que con los con planes con regla ¿todo", ya que estos realmente podrían no ocuparse. Aun así, esta reducción podría considerarse dentro
+de las opciones porque para aprobar una carrera se podría ocupar la máxima cantidad de ramos posibles siendo perjudicada la nota pero se realizaría un post-procesamiento para mejorar aquello.
+
+Lamentablemente, como se mencionó, la implementación actual ya realiza una reducción descartando poner un ramo dentro de un plan si este ya esta cubierto. Si se realizará la reducción del párrafo anterior, se agregarían ramos con menor nota y el orden de poner los ramos de mejor nota inicialmente se vería entorpecido, provocando que la reducción de la implementación actual funcione incorrectamente. De todas formas se implementaran ambas y se realizará una comparación para decidir cual es mejor
+dentro de ellas pero, a priori, debido a que los ramos reducidos de la implementación actual pueden tener mas que una opción donde ser ubicados, implicaría una reducción mayor y sería una mejor decisión.
+
+Yendo a la búsqueda de mejora dentro de la heuristica ya implementada, se debe encontrar una perspectiva distinta para ver el problema. Si se modela éste como un grafo podríamos encontrar formas dentro de la teoría que podrían servir como mejora. Por ende, si se consideran los ramos como si fueran nodos unidos solo si poseen un plan en común dentro de sus opciones, se tendría una imagen como la que esta a continuación.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{imagenes/10}
+	\caption{}
+	\label{}
+\end{figure}
+
+Se observa un grupo de ramos de un alumno de la carrera de ingeniería civil en computación, en donde el nodo posee el nombre del ramo en su interior y entre ellos están unidos por aristas de distintos colores. El color indica el plan por el cual están unidos (detallado en la legenda) existiendo ramos donde se origina un solo color debido a que solo tienen un candidato donde ser ubicados y pueden no estar asociados a ningún otro nodo.
+
+Además, como se observa, existen componentes conexas dentro del grafo. Si bien esto a priori puede no significar mucho, si se contrasta con la implementación actual toma sentido un tipo de mejora hablada anteriormente como lo es la programación dinámica. Si se toma un ramo A y se puede gastar en los planes P o Q, sea cual sea la decisión con ese ramo esto no va a afectar la decisión de un ramo B que se puede gastar en los planes R o S. Esto debido a que no comparten ningún plan y pueden tomarse
+como problemas independientes. Se volverían dependientes uno sobre el otro si se tuviera un ramo C que pueda gastarse en Q o R (ambas opciones de A y B) debido a que si se gasta en Q implicaría menos espacio para A o si se gasta en R significaría menos espacio de solución para B. La solución actual esta considerando todos los ramos y sus decisiones dependientes de los demás y lo que significan las componentes conexas dentro del grafo es que existen subproblemas independientes.
+
+De todas manera, inicialmente se consideró una dependencia completa debido a la forma de árbol de dependencia de los planes. Por lo mismo, se debe aun considerar reglas que no están siendo visualizadas dentro del grafo pero se ven en la visualización de reglas como lo son la posibilidad de no cumplir un plan debido a que el plan padre se cumple. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.4]{imagenes/11}
+	\caption{}
+	\label{}
+\end{figure}
+
+En el caso de la imagen, dado el calculo de un grafo de ramos de la segunda versión de la carrera ingeniería civil electricista se pintaron dos componentes conexas (azul y rojo) en el arbol de niveles de los planes. Si se sigue el razonamiento de uno de los párrafos anteriores los arboles de decisión de estas componentes conexas deberían estar separados pero dado que un plan no necesariamente debe cumplirse ya que puede cumplirse el padre estas deberían estar juntas. Podemos aprobar los planes
+azules y solo un plan rojo (el que no tiene un padre azul) y estaríamos cumpliendo todas las reglas pero si lo consideramos problemas independientes en la componente conexa roja se hará esfuerzo por completar los planes de nivel bajo aunque no sea necesario.
+
+Teniendo todas estas cosas en consideración se lograría reducir el problema en varios problemas pequeños. Si anteriormente se tenían $3^{30}$ combinaciones, con esta mejora se lograría una reducción a problemas independientes y el calculo se haría con sumas, es decir, si se pudiera dividir en tres componentes conexas con diez ramos cada uno se tendría la adición $3^{10}+3^{10}+3^{10}$ lo que es igual a $3^{11}$ combinaciones.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{imagenes/12}
+	\caption{}
+	\label{}
+\end{figure}
+
+Si se vuelve a ver la imagen donde esta el grafo con las componentes conexas, se puede ver que la componente con mayor cantidad de ramos posee aristas de color naranjo y morado. Los ramos que están uniendo estos dos colores son tres (CC5315, CC5905 y CC5404) y si se toma inicialmente la decisión sobre ellos podrían formarse dos componentes conexas separadas. Es decir, decidir sobre un ramo podría formar nuevas componentes reduciendo aun más el espacio de soluciones. Aun así, el calculo de qué
+ramos tendrían mayor probabilidad de ocasionar esta separación y el ordenamiento según ello podría significar un coste mayor debido a que se estaría rompiendo el orden inicial de mayor valor (al igual que una de las reducciones que se pensó). Por lo tanto, se puede implementar el calculo recursivo de componentes conexas y evaluar los dos posibles ordenamientos para ver cual ocasiona una reducción mayor.
+
+Finalmente, una mejora final considerada en esta memoria es el cache. [Explicar brevemente lo que es un cache]. Si bien con el calculo de componentes conexas se estaría eliminando gran parte de los elementos repetidos, también pueden existir cálculos repetidos por la formación de nuevas componentes conexas que ya se habían formado anteriormente.
+
+Si se tuviera un ramo que al asignarse genera tres componentes conexas, el ramo podría haberse asignado dentro de esas tres opciones solamente. Si evaluamos paso a paso como se comportaría el algoritmo al asignar este ramo podremos evidenciar el calculo repetido.
+
+%Imagen explicando el cache
+
+Al inicio, el ramo será asignado en la primera componente calculándola considerando el ramo dentro de su solución. En cambio las otras dos componentes se calcularan sin considerar el ramo. Una vez hechos esos cálculos, el algoritmo debe devolverse y calcular que pasaría si el ramo fuera asignado en la segunda componente conexa. Allí, la segunda componente tendrá probablemente una solución distinta porque en esta ocasión debe considerar el ramo, la primera componente también deberá hacer su
+calculo nuevamente porque ahora no debe considerar el ramo (anteriormente si lo había hecho) pero la tercera componente volverá a calcularse sin considerar el ramo lo que podría guardarse dentro de un cache y no necesitar calcularla.
+
+Lo anterior, debido al calculo del algoritmo, solo se produciría con ramos que generan mas de dos componentes conexas lo que es de baja probabilidad. Aun así se implementara dentro de esta memoria porque puede significar mejoras considerables si la componente conexa guardada fuese de un volumen grande.
+
+
+
