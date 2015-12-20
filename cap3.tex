@@ -13,14 +13,17 @@ Finalmente, en la sección del proceso actual se abordará el procedimiento realiz
 
 Para entender el problema de forma mas detallada podemos realizar un simplificación del recuento y reducirlo a un problema de mudanza (bin packing). Para ello debemos asimilar los planes como si fueran cajas, y los ramos como si fueran elementos que deben ser guardados dentro de estas cajas para poder ser trasladados.
 
-Para este problema la solución trivial seria ir intentando distintas combinaciones posibles de tal manera de lograr que todos los elementos sean guardados. Esto seria la solución a fuerza bruta del problema entregando la mejor solución pero el tiempo necesario para realizar todas combinaciones posibles es muy grande. No se posee un tiempo ilimitado y, por ende, lo mas natural sería comenzar a privilegiar algunos elementos guardando inicialmente los de mayor valor para luego ir rellenando con los
-de menor valor o los que se podrían dejar olvidados (Como lo realizado por Martello y Toth descrito en el ¿Marco Teorico").
+Para este problema la solución trivial seria ir intentando distintas combinaciones posibles de tal manera de lograr que todos los elementos sean guardados. Esto seria la solución a fuerza bruta del problema entregando la mejor solución pero el tiempo necesario para realizar todas combinaciones posibles es muy grande. No se posee un tiempo ilimitado y, por ende, lo mas natural sería comenzar a privilegiar algunos elementos guardando inicialmente los de mayor valor para luego ir rellenando con los de menor valor o los que se podrían dejar olvidados (Como lo realizado por Martello y Toth descrito en el ¿Marco Teorico").
 
 En el caso de la solución presente del recuento de UD¿s se utiliza la anterior heuristica. Se consideran los ramos de valor aquellos que poseen mayor nota y son de nivel mas alto (se debe privilegiar poner los ramos de mejor nota en la carrera debido a que ellos son considerados para el promedio final). Finalmente, esto iría mediante backtracking visitando todas las soluciones posibles pero teniendo en un inicio ramos de importancia fijos.
 
-Matemáticamente, el modelo simplificado tendría las cajas y los elementos como ¿
+Matemáticamente, se puede definir que un ramo $r$ puede pertenecer a cierto conjunto de planes $P_r$ de tamaño $n_r$, y que un plan se ve cubierto si y solo si tiene asignado una cantidad determinada de ramos mayor o igual a $L_p$. Por lo anterior, el determinar el cumplimiento del plan y la nota se trata de un problema de asignación en el que se puede usar el ramo en alguno de sus planes. Si consideramos $X_{rp} \in \{0,1\}$ como la variable de decisión que determina si se usa el ramo $r$ en el plan $p$, el modelamiento del problema de calcular si se cumple el plan quedaría determinado por:
 
-%Escribir modelo y orden de cmplejidad
+$$ max \sum_{r}^{Ramos} \sum_{p}^{Planes} X_{rp} $$
+$$ s.a.\ \ \ \sum_{r}^{Ramos} X_{rp} > L_{p} \ \ \ \ \forall p \in planes $$
+$$ \sum_{p}^{P_{r}} X_{rp} \leq 1 \ \ \wedge \sum_{p}^{planes \setminus P_{r}} X_{rp} \leq 0 \ \ \ \ \forall r \in ramos $$
+
+De esta forma, el orden de complejidad de este modelo vendría dado por la pitatoria $ \prod_{r} n_{r} $. Es decir, en el caso hipotetico en que $m$ ramos tuvieran tres opciones donde ser ubicados se tendría $ \prod_{r} 3 \Rightarrow O(3^m)$, lo que equivale a un orden de complejidad exponencial. A partir de esto se descarta, a priori, la posibilidad de un problema mucho mayor en que al ser combinaciones de todos los ramos contra todos los planes se obtendría un orden factorial de complejidad. 
 
 Como se posee poco tiempo en un sitio web, este modulo es detenido a los quince segundos y por lo tanto puede suceder que hasta ese tiempo no se haya visitado una combinación que diga que todos los planes se cumplen siendo que quizás mas adelante podría encontrarla. En el caso del calculo de la nota se sigue el mismo comportamiento debido a que se realiza en conjunto con la comprobación del cumplimiento del plan principal. 
 
@@ -28,18 +31,22 @@ Si bien se asegura que se tiene una buena distribución porque se asignaron los r
 
 Aun así, lo descrito anteriormente solo es una relajación del problema. Si se consideran todas las reglas especificas de cada plan se puede armar un modelo como sigue:
 
-%Escribir modelo de la imagen
+$$ max\ \ usar_{carr,carr} \ \ :\ carr \in planes $$
+$$ s.a. \sum_{p}^{planes} usar_{op} \leq 1 \ \ \ \forall o \in objetos \setminus o \neq p $$
+$$ usar_{pp} \leq usar_{op} \ \ \ \forall p \in planes, \forall o \in objetos\ \setminus\ regla_{p} = todo \wedge pertenece_{op} = 1 $$
+$$ usar_{pp} \cdot cantidad_{p} \leq contar_{p} \ \ \ \forall p \in planes\ \setminus\ regla_{p} = contar $$
+$$ usar_{pp} \cdot cantidad_{p} \leq uds_{p} \ \ \ \forall p \in planes\ \setminus\ regla_{p} = ud $$
+$$ usar_{pq} \leq contar_{p} \ \ \ \forall p,q \in planes\ \setminus\ regla_{p} = contar \wedge pertenece_{pq} = 1 $$
+$$ usar_{pq} \leq uds_{p} \ \ \ \forall p,q \in planes\ \setminus\ regla_{p} = ud \wedge pertenece_{pq}=1 $$
+$$ usar_{pq} \leq usar_{pp} \ \ \ \forall p,q \in planes\ \setminus\ regla_{p} = todo \wedge pertenece_{pq}=1 $$
 
-En este modelo se generaliza lo que son los ramos y los planes debido a que se comportan de manera parecida. Es decir, como un plan puede poseer tanto ramos como subplanes y además un ramo puede verse como un plan debido a que puede poseer equivalencias, finalmente pueden modelarse como un único conjunto (llamado ¿objetos¿). Además, puede utilizarse una variable que en el modelo le llamamos ¿Usar¿ que implica que un elemento ¿i¿ esta siendo usado en un elemento ¿j¿ de tal manera que esto implica
-los objetos considerados dentro de un plan. Un objeto estaría siendo usado en si mismo si y solo si es un ramo aprobado o es un plan donde se cubren todas las reglas relativas a él, y por ende de esta manera se podría verificar cuando una carrera se cumple.
+En este modelo se generaliza lo que son los ramos y los planes debido a que se comportan de manera parecida. Es decir, como un plan puede poseer tanto ramos como subplanes y además un ramo puede verse como un plan debido a que puede poseer equivalencias, finalmente pueden modelarse como un único conjunto llamado objetos ($ramos \cup planes$). Además, puede utilizarse una variable que en el modelo le llamamos ``Usar'' que implica que un elemento ``i'' esta siendo usado en un elemento ``j'' de tal manera que esto implica los objetos considerados dentro de un plan. Un objeto estaría siendo usado en si mismo si y solo si es un ramo aprobado o es un plan donde se cubren todas las reglas relativas a él, y por ende de esta manera se podría verificar cuando una carrera se cumple.
 
 De esta manera las restricciones vendrían a explicar reglas parecidas al modelo simplificado como que un objeto puede ser usado una única ocasión, que cuando se tiene una regla ¿todo" se deben usar todos los elementos dentro de él y que cuando se tiene regla ¿contar¿ o ¿uds¿ se debe utilizar una cantidad mayor o igual a la determinada. 
 
-La forma que esta implementado actualmente el sistema es mediante backtracking. Es decir, lo que se realiza es tomar un ramo de una lista, fijar el plan donde puede ser utilizado (escogiendo el primero de los candidatos para ese ramo) y continuar con el ramo siguiente. En cada paso se va evaluando si la solución que se tiene en ese instante es mejor que una guardada en una variable global y si lo fuese se actualiza esa variable. Luego, cuando todos los ramos se asignaron, el algoritmo debe ir
-devolviéndose de manera tal de ir probando los siguientes candidatos de cada ramo pero volviendo a calcular las combinaciones de los ramos siguientes porque cambió la situación. 
+La forma que esta implementado actualmente el sistema es mediante backtracking. Es decir, lo que se realiza es tomar un ramo de una lista, fijar el plan donde puede ser utilizado (escogiendo el primero de los candidatos para ese ramo) y continuar con el ramo siguiente. En cada paso se va evaluando si la solución que se tiene en ese instante es mejor que una guardada en una variable global y si lo fuese se actualiza esa variable. Luego, cuando todos los ramos se asignaron, el algoritmo debe ir devolviéndose de manera tal de ir probando los siguientes candidatos de cada ramo pero volviendo a calcular las combinaciones de los ramos siguientes porque cambió la situación. 
 
-Ejemplificando, si se poseen tres ramos A, B y C, se deben asignar los dos primeros y calcular todas las opciones para C. Luego, se debe retroceder un paso, cambiar el candidato de B y volver a calcular las opciones de C. Asi de manera sucesiva hasta lograr calcular todas las opciones de B y A, respectivamente. Como se dijo anteriormente, no se posee un tiempo infinito y, por ende, el algoritmo debe detenerse, por lo tanto es probable que no se logre retroceder hasta A y solo se quede con el
-calculo de las mejores opciones de B y C. Es por ello que los ramos determinados en un principio deben asignarse de la mejor manera posible para que el costo de dejar el algoritmo inconcluso se minimice.
+Ejemplificando, si se poseen tres ramos A, B y C, se deben asignar los dos primeros y calcular todas las opciones para C. Luego, se debe retroceder un paso, cambiar el candidato de B y volver a calcular las opciones de C. Asi de manera sucesiva hasta lograr calcular todas las opciones de B y A, respectivamente. Como se dijo anteriormente, no se posee un tiempo infinito y, por ende, el algoritmo debe detenerse, por lo tanto es probable que no se logre retroceder hasta A y solo se quede con el calculo de las mejores opciones de B y C. Es por ello que los ramos determinados en un principio deben asignarse de la mejor manera posible para que el costo de dejar el algoritmo inconcluso se minimice.
 
 
 \section{Proceso Presente}
