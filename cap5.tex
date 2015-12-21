@@ -1,15 +1,22 @@
 \chapter{Implementación}
 
-Para la implementación se utilizó como base lo hecho anteriormente. Lo anterior se dividía en cuatro funciones importantes destacando dos de ellas: la inicial y la recursiva. La función inicial realiza la petición de los ramos y planes a partir del rut y carrera de un alumno, limpia estos datos, realiza asociaciones como las relaciones entre ramos de distintas versiones, llama a la función recursiva y, finalmente, retorna los resultados. Por otra parte, la recursiva realiza todo el procesamiento
-de la heuristica hablada llamándose a si misma por cada asignación de ramo hecha. Además, debe convocar a las otras dos funciones donde se propaga la elección de un ramo en un plan sobre todos los demás planes y donde se evalúa si la solución actual es mejor que la guardada. Esta ultima también posee el contador de tiempo donde si se exceden los quince segundos retorna la solución guardada por el momento y hace retornar los resultados  desde la recursiva hacia la función inicial, para que esta
-los devuelva al controlador web que los solicitó.
+Para la implementación se utilizó como base lo hecho anteriormente. Se dividía en cuatro funciones importantes destacando dos de ellas: la inicial y la recursiva. La función inicial realiza la petición de los ramos y planes a partir del rut y carrera de un alumno, limpia estos datos, realiza asociaciones como las relaciones entre ramos de distintas versiones, llama a la función recursiva y, finalmente, retorna los resultados. Por otra parte, la recursiva realiza todo el procesamiento de la heuristica hablada llamándose a si misma por cada asignación de ramo hecha. Además, debe convocar a las otras dos funciones donde se propaga la elección de un ramo en un plan sobre todos los demás planes y donde se evalúa si la solución actual es mejor que la guardada. Esta ultima también posee el contador de tiempo donde si se exceden los quince segundos retorna la solución guardada por el momento y hace retornar los resultados desde la recursiva hacia la función inicial, para que esta los devuelva al controlador web que los solicitó.
 
-%imagen de la explicación anterior
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.7]{imagenes/15}
+	\caption{Funciones de la implementación anterior y sus comportamientos.}
+	\label{impl_old}
+\end{figure}
 
-En este caso se utilizó la misma forma de programación preocupándose que todas las funciones tuvieran una firma similar entre ellas respetando que siempre reciban la lista de ramos y planes, y retornen la mejor solución si corresponde. Además, como no estaba dentro del alcance se reutilizó la implementación hecha en la funcion inicial de la implementación anterior. Por lo tanto se poseen seis funciones donde tres de ellas se corresponden con las explicadas en el parrafo anterior exceptuando la
-recursiva debido a que se cambio el comportamiento del algoritmo.
+En este caso, se utilizó la misma forma de programación preocupándose que todas las funciones tuvieran una firma similar entre ellas respetando que siempre reciban la lista de ramos y planes, y retornen la mejor solución si corresponde. Además, como no estaba dentro del alcance se reutilizó la implementación hecha en la funcion inicial de la implementación anterior. Por lo tanto se poseen seis funciones donde tres de ellas se corresponden con las explicadas en el parrafo anterior exceptuando la recursiva debido a que se cambio el comportamiento del algoritmo.
 
-%Imagen de las funciones de la implementacion actual
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.2]{imagenes/16}
+	\caption{Funciones de la nueva implementación y sus comportamientos.}
+	\label{impl_new}
+\end{figure}
 
 Una de las funciones es el calculo de las componentes conexas donde a partir de los ramos se dividen en distintos arreglos debido a los planes que comparten. A esta función siempre se le entrega la lista de todos los ramos y planes pero puede adicionarse una tercera variable opcional que dice que subconjunto de esas listas deben ser considerados para el calculo y cuales elementos deben quedan fuera.
 
@@ -17,5 +24,6 @@ Otra función es el calculo de la mejor solución a partir de un arreglo de soluci
 
 La función recursiva de la implementación antigua se cambio por dos funciones nuevas. La primera es el paso intermedio donde se calculan las componentes conexas y por cada una de ellas se inicia el calculo de las distintas opciones de un ramo. La segunda es la que realiza este calculo, elige un ramo y calcula todas sus opciones (llamando a la primera función) generando una arreglo de posibles soluciones el cual es pasado al método explicado en el párrafo anterior donde se calcula cual es mejor.
 
-Finalmente se posee la función que realiza un recorrido con orden posterior (post order traversal) del árbol de planes para propagar las elecciones hechas en cada paso del segundo método explicado en el párrafo anterior.
+En la primera función descrita en el parrafo anterior es donde debe ir ubicada la implementación del cache. Allí, se debe encontrar una firma (hash) que diferencie los elementos a guardar en memoria de manera tal de discriminar cual componente conexa generada esta repitiendo su calculo para ser extraida desde la memoria y no necesitar el llamado a la segunda función.
 
+Finalmente, se posee la función que realiza un recorrido con orden posterior (post order traversal) del árbol de planes para propagar las elecciones hechas en cada paso del segundo método explicado en el párrafo anterior.

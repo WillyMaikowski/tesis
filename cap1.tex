@@ -2,7 +2,7 @@
 
 A continuación se presentará los conceptos básicos necesarios para la comprensión de la memoria. Primero, se introducirá la plataforma en la que esta alojada la solución actual para, luego, explicar paso a paso el modulo y sus elementos.
 
-Después, se profundizará en el elemento principal¿ Los planes. Para ello se mostrará su estructura, reglas y alcances. Además, se ejemplificará una carrera para mostrar como se realiza la comprobación de satisfacción y el calculo del promedio.
+Después, se profundizará en el elemento principal\ldots Los planes. Para ello se mostrará su estructura, reglas y alcances. Además, se ejemplificará una carrera para mostrar como se realiza la comprobación de satisfacción y el calculo del promedio.
 
 Posteriormente, se profundizará en los elementos que motivaron esta memoria y la relación que poseen en conjunto con los objetivos.
 
@@ -14,7 +14,7 @@ El Área de Infotecnologías (ADI) es un equipo de personas dedicadas a dar soluci
 
 La primera, esta orientada al apoyo docente siendo un nexo entre el alumno y el profesor. Es decir, permite que existan foros para relacionarse, secciones de material docente para compartir documentos, un lugar para publicar las notas que va obteniendo el alumno en sus evaluaciones, entre otros.
 
-En cambio, U-Campus esta orientado a lo administrativo. Hay variados procesos que se dan en la universidad en el que existe interacción entre un alumno y los funcionarios no académicos. Un ejemplo de ello era la entrega de certificados en donde un alumno se dirigía donde un funcionario para su solicitud.
+En cambio, U-Campus esta orientado a lo administrativo. Hay variados procesos que se dan en la universidad en los que existe interacción entre un alumno y los funcionarios no académicos. Un ejemplo de ello era la entrega de certificados en donde un alumno se dirigía donde un funcionario para su solicitud.
 
 Aun así, una amplia cantidad de estos procesos han pasado por un periodo de automatización de manera tal de facilitar la parte operativa y orientar la administración en velar por el cumplimiento estratégico de la universidad. Entre estos procesos se encuentra la titulación. Ésta consiste en variadas etapas que distintas áreas de la facultad deben verificar de manera tal de chequear finalmente si un alumno esta habilitado para obtener un titulo profesional.
 
@@ -25,14 +25,13 @@ Aun así, una amplia cantidad de estos procesos han pasado por un periodo de auto
 	\label{ProcesosTitulacion}
 \end{figure}
 
-Una de las etapas de verificación es el chequeo de si un alumno posee el avance académico suficiente. Este procedimiento es conocido como el ``Recuento de UD's'' debido a que un alumno debe ir aprobando cursos que son medidos en ¿Unidades Docentes¿ (unidad de medida de demanda horaria) de tal manera que se cumpla una serie de reglas. Estas reglas antiguamente consistían netamente en sumar una cantidad especifica de UD's y de allí nació la palabra recuento.
+Una de las etapas de verificación es el chequeo de si un alumno posee el avance académico suficiente. Este procedimiento es conocido como el ``Recuento de UD's'' debido a que un alumno debe ir aprobando cursos que son medidos en ``Unidades Docentes'' (unidad de medida de demanda horaria) de tal manera que se cumpla una serie de reglas. Estas reglas antiguamente consistían netamente en sumar una cantidad especifica de UD's y de allí nació la palabra recuento.
 
 En la antigüedad, este procedimiento se hacia manualmente y tomaba meses en ser calculado. Anteriores memorias intentaron lograr que este procedimiento fuera cada vez mejor pero no fueron fructíferas. Por ejemplo, en \cite{bib1} solo se logró el entendimiento en profundidad del problema proponiendo una solución y en \cite{bib2} se logro llegar a un sitio web que solo reemplazaba lo que antiguamente se hacia en papel por un formulario web sin modificar en nada el proceso.
 
 Finalmente, hace algunos años en U-Campus se agregó un modulo dedicado para ello que centralizaba toda la información del alumno con sus cursos aprobados. El modulo acogió el nombre de ``Recuento de UD's'' y logró minimizar los tiempos de meses a segundos.
 
-Para lograr evaluar el avance académico de un alumno se debió modelar un titulo profesional en planes. Un plan es un conjunto de ramos y/o subplanes con una regla especifica. Dado que poseen subplanes y estos, a su vez, también pueden poseer subplanes se empieza a armar un estilo de arbol en donde el plan principal sería la cúspide siendo el ultimo en ser evaluado debido a que para cumplirlo se debería concluir previamente los de mas bajo nivel, por ende a este plan se le conoce como la carrera
-(si es que hablamos de titulo profesional).
+Para lograr evaluar el avance académico de un alumno se debió modelar un titulo profesional en planes. Un plan es un conjunto de ramos y/o subplanes con una regla especifica. Dado que poseen subplanes y estos, a su vez, también pueden poseer subplanes se empieza a armar un estilo de arbol en donde el plan principal sería la cúspide siendo el ultimo en ser evaluado debido a que para cumplirlo se debería concluir previamente los de mas bajo nivel, por ende a este plan se le conoce como la carrera (si es que hablamos de titulo profesional).
 
 Las reglas mencionadas previamente pueden ser tres: regla contar, UD's o todo. La regla contar quiere decir que para concluir el plan se debe aprobar cierta cantidad de ramos. Si un plan con esta regla posee, a su vez, un subplan con la misma regla, los ramos aprobados del subplan son adicionados al contador del plan principal. La regla UD's es similar pero en vez de contar cantidad de ramos aprobados lo que se hace es sumar las unidades docentes de los ramos aprobados.
 
@@ -40,21 +39,20 @@ Las reglas mencionadas previamente pueden ser tres: regla contar, UD's o todo. L
 	\centering
 	\includegraphics[scale=1.5]{imagenes/2}
 	\caption{Árbol de planes y ramos con sus respectivas reglas y unidades}
-	\label{ProcesosTitulacion}
+	\label{arbolReglas}
 \end{figure}
 
-En la imagen se puede observar el árbol de planes y ramos con sus reglas y unidades, respectivamente. Para el caso del plan de más bajo nivel que posee regla UD's, si esta fuera sumar veinticinco se podría tomar una combinación de ramos que dé esa cantidad, por ejemplo, todos los ramos de cinco unidades. Para el plan con regla contar, si esta fuera de contar una unidad se debe aprobar al menos uno de ellos sin importar las unidades que poseen los ramos.
+En la imagen \ref{arbolReglas} se puede observar el árbol de planes y ramos con sus reglas y unidades, respectivamente. Para el caso del plan de más bajo nivel que posee regla UD's, si esta fuera sumar veinticinco se podría tomar una combinación de ramos que dé esa cantidad, por ejemplo, todos los ramos de cinco unidades. Para el plan con regla contar, si esta fuera de contar una unidad se debe aprobar al menos uno de sus ramos sin importar las unidades que poseen.
 
-Dado que las reglas son de contar o sumar alguna unidad, existe la forma de no cumplir un subplan. Si el plan del segundo nivel que posee regla UD's tuviera que sumar treinta unidades, estas podrian sumarse a partir de solo los ramos que posee, sin necesidad de sumar las unidades del subplan de él. De esta manera el subplan de más bajo nivel se daría por cubierto aunque no se cumpla su regla. 
+Dado que las reglas son de contar o sumar alguna unidad, existe la forma de no cumplir un subplan. Si el plan del segundo nivel que posee regla UD's tuviera que sumar treinta unidades, estas podrian sumarse a partir de los ramos que posee sin necesidad de sumar las unidades del subplan de él. De esta manera el subplan de más bajo nivel se daría por cubierto aunque no se cumpla su regla. 
 
-Aun así, existe la regla "todo¿ que no permite el comportamiento anterior debido a que obliga a cumplir todos los elementos (ramos y subplanes) que pertenecen a un plan. En la imagen anterior, la carrera posee la regla todo y, por ende, los dos subplanes que contiene deben cumplirse de manera obligatoria.
+Aun así, existe la regla ``todo'' que no permite el comportamiento anterior debido a que obliga a cumplir todos los elementos (ramos y subplanes) que pertenecen a un plan. En la imagen anterior (figura \ref{arbolReglas}), la carrera posee la regla todo y, por ende, los dos subplanes que contiene deben cumplirse de manera obligatoria.
 
 En la Facultad de Ciencias Físicas y Matemáticas el modulo recuento de UD's es ampliamente ocupado y las carreras que han sido modeladas poseen variedad de combinaciones de las reglas antes descritas. Además, se poseen versiones debido a que en ciertas generaciones los cursos que se dictan son distintos, siendo un hecho natural debido al avance académico y a las innovaciones que se realizan a la malla curricular año tras año. 
 
-Un cambio de versión implica referencias complejas dentro de los ramos debido a que dos ramos en una versión pueden unirse en uno a la fase siguiente implicando diferencias en la cantidad de UD's, la nota que debe ser puesta, entre otros. Es decir, un alumno que poseía esos dos ramos antiguos aprobados y pasa a la nueva versión del plan tendrá inconsistencias en esos valores. Por lo anterior, el manejo de versiones en los casos complejos no se considera dentro del alcance de esta memoria pero se
-abarcará las equivalencias uno a uno que puedan poseer los ramos.
+Un cambio de versión implica referencias complejas dentro de los ramos debido a que dos ramos en una versión pueden unirse en uno a la fase siguiente implicando diferencias en la cantidad de UD's, la nota que debe ser puesta, entre otros. Es decir, un alumno que poseía esos dos ramos antiguos aprobados y pasa a la nueva versión del plan tendrá inconsistencias en esos valores. Por lo anterior, el manejo de versiones en los casos complejos no se considera dentro del alcance de esta memoria pero se abarcará las equivalencias uno a uno que puedan poseer los ramos.
 
-Si observamos como ha sido modelada la carrera ¿Ingeniería Civil en Computación¿ tendremos un ejemplo claro del diseño estándar dentro de la facultad. A continuación se muestra un diagrama con la ultima versión donde se evidencia la tenencia de una linea de cursos obligatorios y otra de cursos electivos.
+Si observamos como ha sido modelada la carrera ``Ingeniería Civil en Computación'' tendremos un ejemplo claro del diseño estándar dentro de la facultad. A continuación se muestra un diagrama con la ultima versión donde se evidencia la tenencia de una linea de cursos obligatorios y otra de cursos electivos.
 
 \begin{figure}[!h]
 	\centering
@@ -64,7 +62,7 @@ Si observamos como ha sido modelada la carrera ¿Ingeniería Civil en Computación¿
 \end{figure}
 
 
-Un punto importante de la titulación es la nota con la que un alumno egresa. Para realizar ese calculo se debe tener en consideración el tipo de titulo que se obtiene debido a que es posible promediar todos los ramos o, si es titulo profesional, promediar solo los ramos de los planes de carrera (\cite{bib6}). En el caso de la imagen anterior, se tendría un promedio con las notas de los planes que están superior a la linea roja punteada pero en el caso de otro tipo de titulo se deberían promediar todos los ramos.
+Un punto importante de la titulación es la nota con la que un alumno egresa. Para realizar ese calculo se debe tener en consideración el tipo de titulo que se obtiene debido a que es posible promediar todos los ramos o, si es titulo profesional, promediar solo los ramos de los planes de carrera (\cite{bib6}). En el caso de la figura \ref{planesComputa}, se tendría un promedio con las notas de los planes que están superior a la linea roja punteada pero en el caso de otro tipo de titulo se deberían promediar todos los ramos.
 
 Por todo lo antes descrito, una correcta solución debe velar por satisfacer dos condiciones: determinar si un alumno esta en momento de titularse y encontrar la mejor nota para ello. La solución actual no confirma del todo estas dos condiciones ya que se tienen falsos negativos (puede mencionar que un alumno no puede titularse siendo que si posee todo el avance curricular necesario) y no se tiene garantía de que entregue la mejor nota.
 
@@ -73,14 +71,15 @@ Por todo lo antes descrito, una correcta solución debe velar por satisfacer dos 
 
 Si bien actualmente se tiene una mejora considerable de lo que es la titulación, en lo que respecta a la propuesta de recuento de unidades docentes, aun se sigue con un procedimiento de chequeo manual. Durante el tiempo ésta se ha ido acortando cada vez más pero un desarrollo mayor en esa área significaría el punto culmine logrando obtener resultados confiables y en un tiempo considerable.
 
-Además, el desafío es de gran envergadura lo que incentiva solucionarlo. Como se mencionó en los Antecedentes, hubieron dos memorias en donde se intento llegar a una mejora automática a este proceso. En \cite{bib1} \textbf{explicar que se hizo en esa memoria}. 
+Además, el desafío es de gran envergadura lo que incentiva solucionarlo. Como se mencionó en los Antecedentes, hubieron dos memorias en donde se intento llegar a una mejora automática a este proceso. En \cite{bib1} \textbf{explicar más en detalle que se hizo en esa memoria}. 
 
 Por otra parte, en \cite{bib2} se tenia presente la anterior memoria por lo que se logro avanzar en la automatización pero a partir de una perspectiva de apoyo netamente y no de reemplazar parte del proceso. Esto quiere decir que se construyó un sitio en el que la persona encargada debía seguir los mismo pasos que si lo hiciera con papel. Si bien se podía centralizar datos y se contaba con una base de datos donde se guardaban los registros de recuento, no logró mayor mejora.
 
-%imagen del sitio de la memoria 2
+\textbf{imagen del sitio de la memoria 2}
 
-Finalmente, el problema (que se abordará de manera mas profunda posteriormente) consiste en asignar ramos dentro de planes de manera de encontrar una combinación que satisfaga las dos condiciones mencionadas en los antecedentes. Este tipo de problemas, de calcular múltiples combinaciones, puede tomar mucho tiempo. Aun así, dado el entendimiento del caso que se ha hecho y los intentos previos de automatización, se puede lograr una reducción ad-hoc que permita lograr el desafío y por ende motiva
-aun mas la búsqueda. 
+\textbf{Explicar más en detalle memoria 2}
+
+Finalmente, el problema (que se abordará de manera mas profunda posteriormente) consiste en asignar ramos dentro de planes de manera de encontrar una combinación que satisfaga las dos condiciones mencionadas en los antecedentes. Este tipo de problemas, de calcular múltiples combinaciones, puede tomar mucho tiempo. Aun así, dado el entendimiento del caso que se ha hecho y los intentos previos de automatización, se puede lograr una reducción ad-hoc que permita lograr el desafío y por ende motiva aun más la búsqueda. 
 
 
 \section{Objetivos}
@@ -89,7 +88,7 @@ Los objetivos de este trabajo de memoria se describen a continuación:
 
 \textbf{General:}
 \begin{itemize}
-	\item Rediseñar e implementar el actual sistema de recuento de UD's para asegurar la confiabilidad de los resultados, tanto desde el punto de vista del cumplimiento del plan de estudios como del cálculo del promedio de titulación, de manera tal que al ser utilizado se resuelva  en un tiempo razonable para un sitio web (menos de 10 segundos).
+	\item Rediseñar e implementar el actual sistema de recuento de UD's para asegurar la confiabilidad de los resultados, tanto desde el punto de vista del cumplimiento del plan de estudios como del cálculo del promedio de titulación, de manera tal que al ser utilizado se resuelva  en un tiempo razonable para un sitio web (menos de 15 segundos).
 \end{itemize}
 
 \textbf{Especificos:}
@@ -109,13 +108,17 @@ Los objetivos de este trabajo de memoria se describen a continuación:
 
 El ADI posee un equipo de profesionales de distintas aptitudes que siguen una metodología. Inicialmente se realiza un estudio del lugar donde se encuentra la oportunidad de mejora, logrando un entendimiento profundo tanto de la situación actual como de las necesidades futuras. Luego, se replantean procesos y se diseñan las herramientas de apoyo de manera que, finalmente, se implemente una solución ad-hoc.
 
-Gran parte del entendimiento ya se poseía debido a las anteriores memorias y a la implementación previa que poseía el equipo. Por lo tanto, los pasos que se debían seguir serían el lograr entender el problema a partir de lo ya obtenido, comprender la implementación actual y, luego, rediseñar e implementar una nueva solución.
+Gran parte del entendimiento ya se posee debido a las anteriores memorias y a la implementación previa que poseía el equipo. Por lo tanto, los pasos que se deben seguir serían el lograr entender individualmente el problema a partir de lo ya obtenido, comprender la implementación actual y rediseñar en conjunto con el equipo logrando un correcto modelamiento y pensamiento tanto del problema como la solución para, finalmente, implementar y validar las mejoras.
 
 Las plataformas desarrolladas por el ADI poseen un ambiente de desarrollo. Esto quiere decir que se posee una copia de la herramienta pero en un servidor distinto al publico en donde pueden realizarse pruebas con datos reales o simulados. Además, están estructuradas en módulos administrables que permiten el manejo de permisos y aislación de manera tal que el desarrollo de una persona no afecte a otra.
 
-%Modelamiento y pensamiento del problema
+U-Campus posee un sin fin de modulos instalados dentro del servidor en una carpeta compartida donde uno de ellos es el modulo principal. Para realizar una instalación local del sistema se debe poseer en el espacio propio una copia del modulo principal y la definición de las variables por defecto que mencionen donde estan las carpetas con los demás modulos. De esta forma, por defecto se cargaran todos los modulos desde la carpeta compartida y cuando se quiere realizar una mejora de alguno de los modulos se copia la carpeta necesaria en un espacio propio y se define una variable dentro de la instalación principal que fija el nuevo lugar de ese modulo de manera que no se cargue desde la carpeta compartida aislando el desarrollo que se quiera realizar para que no afecte en el normal desarrollo de otros profesionales. Aun así, para agrupar los cambios que se puedan hacer o las distintas versiones que puede tener el sistema se ocupa un controlador de versiones opensource conocido como ``Subversion'' (SVN).
 
-%A partir de la forma en que trabajan, como la implementacion se adecua a esa forma
+\textbf{Agregar una imagen explicando estos dos parrafos (arriba y abajo)}
 
-%Validacion y testing en desarrollo
+Además, en cada modulo dentro de los sistemas se divide la capa logica de la capa de presentación siguiendo lineamientos del paradigma MVC (modelo-vista-controlador). Es decir, dentro de cada modulo se pueden encontrar tres carpetas: templates, include y web.  La primera solo posee elementos con un lenguaje de marcado como HTML donde se definen mayoritariamente aspectos graficos. En la carpeta include mediante el lenguaje de programación PHP se definen funciones que centralizan los modelos los cuales realizan consultas a la base de datos o procesamientos amplios reutilizables. Finalmente, en la tercera carpeta (web) se poseen los controladores, es decir, es la carpeta publica con archivos que son llamados desde el exterior que orquestan las funciones que se deben llamar desde la carpeta include y determina el template (archivo HTML) con el cual se dispondra la respuesta.
+
+El recuento de UD's se encuentra en el modulo de ``Boletines'' (BIA) y gran parte de su logica se encuentra en las funciones de la carpeta include. Por ende, la metodología a seguir para la implementación es crear una copia local de aquel modulo configurando las variables correspondientes y crear nuevas funciones que reemplacen a las anteriores sin mayor consecuencia a los demás elementos.
+
+Finalmente, debido a que se poseen copias de los datos de alumnos, es posible verificar tanto la copia antigua como la nueva y chequear a su vez el buen desempeño de las funciones sin realizar pruebas unitarias. Esto debido a que la verificación de las mejoras y su comportamiento permitiran evaluar de una manera global todos los elementos participes del modulo.
 

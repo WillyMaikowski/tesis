@@ -1,10 +1,10 @@
-\chapter{Marco Teorico}
+\chapter{Marco Teórico}
 
-Gran parte de los conceptos utilizados en esta memoria no son necesariamente de conocimiento general. Es por ello que a continuación se explicara de manera breve los elementos mas utilizados.
+Gran parte de los conceptos utilizados en esta memoria no son necesariamente de conocimiento general. Es por ello que a continuación se explicara de manera breve los elementos más utilizados.
 
 \section{Complejidad}
 
-Cuando se deben comparar procedimientos o algoritmos se debe utilizar alguna unidad de medida. Una unidad importante es el tiempo (cuanto tiempo demora uno con respecto al otro) pero este es relativo a la cantidad de datos que se procesan, por ejemplo, es distinto intentar ordenar cien números a ordenar un millón. Por lo anterior, para comparar dos procedimientos, comúnmente se define una función $T(n)$ donde n es la variable que define el tamaño de los datos.
+Cuando se desean comparar procedimientos o algoritmos se debe utilizar alguna unidad de medida que permita definir cual es mejor. Una unidad importante es el tiempo (cuanto tiempo demora uno con respecto al otro) pero este es relativo a la cantidad de datos que se procesan, por ejemplo, es distinto intentar ordenar cien números a ordenar un millón. Por lo anterior, para comparar dos procedimientos, comúnmente se define una función $T(n)$ donde $n$ es la variable que define el tamaño de los datos.
 
 A partir de estos hechos y del procesamiento de los datos que se realiza en el algoritmo, se va describiendo el comportamiento de la función. Por ejemplo, si el algoritmo visita dos veces cada uno de los datos la función estaría definida por $T(n) = 2 \cdot n$. 
 
@@ -21,7 +21,7 @@ Usualmente no es utilizada directamente la función $T(n)$ y se usan asintotas qu
 
 En la figura \ref{ordenes} se pueden ver los tiempos que demora en procesar un algoritmo una cantidad de datos determinada en una escala logarítmica donde mientras más arriba diverge la función más difícil o más tiempo toma su calculo. En computación se tienen distintos tipos de clases de complejidad para clasificar los problemas según la mejor solución descubierta por el momento siendo las mas conocidas la clase P, los problemas que pueden ser resueltos en tiempo polinomial, y NP, los problemas que pueden ser resueltos en tiempo polinomial pero solo por una maquina no determinista. Estos últimos poseen un subconjunto de problemas conocidos con una complejidad mucho mayor y que son reducibles entre ellos, es decir, un problema puede ser representado o transformado a una variante equivalente de otro problema dentro de ese subconjunto.
 
-Otra unidad de medida diferente al tiempo es la unidad de espacio. Con esto se evalúa la cantidad de memoria necesaria que requiere una solución. En esta tesis se tendrá énfasis en la unidad de tiempo pero en la sección ¿Validación¿ se mencionará brevemente los cuidados que hay que tener con el espacio.
+Otra unidad de medida diferente al tiempo es la unidad de espacio. Con esto se evalúa la cantidad de memoria necesaria que requiere una solución. En esta tesis se tendrá énfasis en la unidad de tiempo pero en la sección ``Validación'' se mencionará brevemente los cuidados que hay que tener con el espacio.
 
 
 \section{Teoría de Grafos}
@@ -30,21 +30,23 @@ Un campo que ha tomado gran importancia en la computación es la teoría de grafos
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=1.1]{imagenes/6}
+	\includegraphics[scale=0.9]{imagenes/6}
 	\caption{Ejemplo de grafo dirigido}
 	\label{directed_graph}
 \end{figure}
 
-La forma que posee esta estructura ha sido de utilidad debido a que muchas cosas pueden representarse mediante ella. Por ejemplo, posiciones dentro de un mapa pueden ser representadas por nodos y las aristas son los caminos entre ellas teniendo la habilidad de agregarle valores (la arista tiene un valor mayor mientras mas alejados están los nodos). A partir de esto y una representación matemática de los elementos de un grafo pueden resolverse problemas teóricos con variada utilidad en la practica. Siguiendo el mismo ejemplo anterior, la solución teórica del camino mas corto entre dos nodos podría representar el camino mas corto entre dos lugares geográficos.
+La forma que posee esta estructura ha sido de utilidad debido a que muchas cosas pueden representarse mediante ella. Por ejemplo, posiciones dentro de un mapa pueden ser representadas por nodos y las aristas son los caminos entre ellas teniendo la habilidad de agregar valores (la arista tiene un valor mayor mientras mas alejados están los nodos). A partir de esto y una representación matemática de los elementos de un grafo pueden resolverse problemas teóricos con variada utilidad en la practica. Siguiendo el mismo ejemplo anterior, la solución teórica del camino con aristas de menor valor entre dos nodos podría representar el camino mas corto entre dos lugares geográficos.
 
 Existen variados tipos de grafos entre ellos los grafos conexos que se definen como los grafos donde para todo par de nodos se tiene un camino que los une. Cuando no se posee un grafo totalmente conexo se pueden tener subconjuntos que si lo sean a los que llamaremos componentes conexas.
 
+\textbf{imagen de grafo conexo y de componentes conexas}
+
 Otro caso particular de grafo son los arboles. Este es un grafo conexo en que la unión de todo par de vértices es única, es decir, se posee solo un camino entre un nodo y otro. En este caso, si bien las aristas en un árbol no poseen dirección, se puede armar un estilo de jerarquía donde el nodo desde donde se originan las primeras aristas es conocido como la raíz. Además, es común en este tipo de estructuras describir los nodos como padres e hijos de acuerdo al nivel que poseen y desde cual nodo se originan. Los nodos que ya no poseen nodos hijos son conocidos como las hojas del árbol.
 
-Dentro de la teoría de grafos y las componentes conexas, existe un concepto útil de conocer para esta memoria conocido como ¿la componente gigante¿ (Giant component en ingles). Si bien es un estudio que implica variadas cosas y utiliza conceptos de probabilidades, uno de los elementos importantes es que si se posee un grafo de $n$ nodos y se van adicionando aristas aleatorias, si la cantidad de aristas adicionadas supera aproximadamente $n/2$ con alta probabilidad se tendrá una componente conexa gigante. \textbf{Quizas no sea tan importante en la memoria y deba sacarse}
+Dentro de la teoría de grafos y las componentes conexas, existe un concepto útil de comprender para esta memoria conocido como ``la componente gigante'' (Giant component en ingles). Si bien es un estudio que implica variadas cosas y utiliza conceptos de probabilidades, uno de los elementos importantes es que si se posee un grafo de $n$ nodos y se van adicionando aristas aleatorias, si la cantidad de aristas adicionadas supera aproximadamente $n/2$ con alta probabilidad se tendrá una componente conexa gigante. \textbf{Quizas no sea tan importante en la memoria y deba sacarse}
 
 
-\section{Optimizacion Combinatorial}
+\section{Optimización Combinatorial}
 
 La optimización es un área de las matemáticas donde se busca determinar la mejor manera de realizar una actividad bajo criterios extraídos del modelamiento del problema.  Un ejemplo es maximizar los ingresos de alguna institución o disminuir los tiempos de ejecución de una tarea.
 
@@ -52,15 +54,17 @@ En el caso particular, la optimización combinatorial involucra encontrar la solu
 
 Usualmente, un problema de optimización combinatorial puede representarse como un árbol de decisión. Es decir, un grafo donde cada nodo diverge hacia otros nodos según la cantidad de opciones que se tiene sobre una variable, de esta manera para cada variable que se debe definir se tendrá una representación visual de alguna elección. Ejemplificando, si tenemos un problema de dos preguntas que se pueden responder con si o no, tendremos un nodo donde se decida sobre la primera pregunta y se tendrá dos aristas debido a las dos opciones de respuesta. Luego, en los nodos hijos se representara la decisión de la segunda pregunta pero teniendo como dependencia la decisión ya tomada, por lo tanto las hojas de este árbol de decisión representan las distintas combinaciones que se pueden obtener del problema conjunto.
 
+\textbf{imagen con un arbol de decision pequeño}
+
 Variados problemas de optimización combinatorial presentan una complejidad de clase NP y muchos de ellos pueden ser representados con grafos. Además, como no se logra encontrar una solución rápida, los problemas son estudiados en profundidad documentándose distintos avances con algoritmos y heurísticas. Estos pueden tener mejoras en casos particulares y es importante conocer algunos de ellos que se parezcan al caso de la presente memoria.
 
-Casos conocidos son el problema de la mochila o el de mudanza. En ellos es necesario poner objetos dentro de algún contenedor de tal manera de maximizar la cantidad de objetos que se pueden llevar, maximizar la utilidad de esos objetos, minimizar la cantidad de contenedores necesarios u otra optimización. Martello & Toth \cite{bib3,bib4} propusieron algoritmos para resolver este tipo de problemas siendo una de ellos la estrategia de ramificación donde el ordenamiento de los objetos se realiza por valor decreciente (tamaño, peso o importancia dependiendo del objetivo). De esta manera, para cada nodo de decisión se tiene el objeto de mayor valor y es ubicado en el contenedor de la más próxima factibilidad.
+Casos conocidos son el problema de la mochila o el de mudanza. En ellos es necesario poner objetos dentro de algún contenedor de tal manera de maximizar la cantidad de objetos que se pueden llevar, maximizar la utilidad de esos objetos, minimizar la cantidad de contenedores necesarios u otra optimización. Martello y Toth \cite{bib3,bib4} propusieron algoritmos para resolver este tipo de problemas siendo una de ellos la estrategia de ramificación donde el ordenamiento de los objetos se realiza por valor decreciente (tamaño, peso o importancia dependiendo del objetivo). De esta manera, para cada nodo de decisión se tiene el objeto de mayor valor y es ubicado en el contenedor de la más próxima factibilidad.
 
 Cuando no se posee una solución exacta adecuada se puede incurrir en reducciones del conjunto de combinaciones con relajaciones de las restricciones. Aun así se debe tener presente conceptos como el de programación dinámica para no incurrir en cálculos reiterados de un subconjunto. Para ejemplificar lo anterior podemos intentar resolver la sucesión de fibonacci la cual esta dada por:
 
 $$F(n) = F(n-1) + F(n-2) , F(0) = 0, F(1) = 1$$
 
-Para calcular el valor de $F(5)$, de acuerdo a la secuencia, se debe calcular el valor de $F(4)$ y $F(3)$. Aun así, para calcular el valor de $F(4)$ se debe calcular nuevamente el valor de $F(3)$ y el valor de $F(2)$. Si se siguiera lo anterior el calculo de $F(3)$ se realizaría repetitivamente siendo que no es necesario si ya fue calculado una vez, por lo que se podrían realizar dos mejoras a la forma en que fue orientada la solución al problema: tener en memoria los cálculos ya hecho para consultarlos posteriormente o seguir una estrategia bottom up (comenzar desde $F(1)$ hasta llegar a $F(n)$).
+Para calcular el valor de $F(5)$, de acuerdo a la secuencia, se debe calcular el valor de $F(4)$ y $F(3)$. Aun así, para calcular el valor de $F(4)$ se debe calcular nuevamente el valor de $F(3)$ y el valor de $F(2)$. Si se siguiera el orden anterior y fuese efectuado por un computador, el calculo de $F(3)$ se realizaría repetitivamente siendo que no es necesario si ya fue calculado una vez, por lo que se podrían realizar dos mejoras a la forma en que fue orientada la solución del problema: tener en memoria los cálculos ya hechos para consultarlos posteriormente o seguir una estrategia bottom up (comenzar desde $F(1)$ hasta llegar a $F(n)$).
 
 \begin{figure}[!h]
 	\centering
