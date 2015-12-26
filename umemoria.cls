@@ -36,7 +36,7 @@
 \RequirePackage{amsmath, amssymb, amsthm, graphicx} % Varios
 \RequirePackage[spanish, es-nolists, es-lcroman]{babel} % Lenguaje
 \RequirePackage[pdfpagelabels]{hyperref} % Links y numeracion del PDF
-\RequirePackage{listings} % Codigo Fuente
+\RequirePackage{listings, xcolor} % Codigo Fuente
 
 %% Lenguaje
 \addto\captionsspanish{\renewcommand\tablename{Tabla}}

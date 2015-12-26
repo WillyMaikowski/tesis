@@ -10,9 +10,10 @@
 \comision{JAVIER VILLANUEVA GONZÁLEZ}{LUIS MATEU BRULE}{\ }
 
 \usepackage{lipsum}
-
+\usepackage{lscape}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{etoolbox}
 
 \begin{document}
 
@@ -20,17 +21,34 @@
 \maketitle
 
 \begin{abstract}
-{\lipsum[1-4]}
+{
+
+El recuento de Unidades Docentes (UD's) es una de las tantas herramientas dentro de la plataforma U-Campus, un sistema desarrollado por el Área de Infotecnologías (ADI) en respuesta a la necesidad de facilitar el cumplimiento de los servicios entre alumnos y funcionarios de la Universidad de Chile. El recuento de UD's forma parte de los pasos necesarios para corroborar el avance académico del alumno y está inserto dentro de los procesos necesarios para realizar la titulación o graduación.
+
+Antiguamente no se poseía esta herramienta y, por ende, se debía realizar un chequeo manual con planillas creadas para cada tipo de titulo. Esta verificación tomaba meses en ser calculada y, debido a ello, variadas personas intentaron crear un sistema que lo apoyara. Sin embargo, solo logró una mejora significativa cuando se desarrolló el sistema por el ADI. Esta implementación consiste en recorrer todas las combinaciones posibles hasta que se encuentre la solución o hasta que se cumpla un plazo de quince segundos dejando inconclusa la certeza de si la solución obtenida hasta ese momento corresponde a la mejor. Debido a lo anterior, se producen casos en que el recuento de UD's responde incorrectamente ya sea mencionando que una persona no cumple con los requisitos académicos siendo que si los satisface (falsos negativos) o entregando una nota inferior a la que una combinación encontrada posteriormente podría entregar.
+
+Inspirado en los problemas que provoca esta falta de exactitud para el agente principal de este proceso, la Subdirección de Gestión Docente (SGD), y en conceptos de programación dinámica y teoría de grafos, se diseñó una mejora en la heurística realizando reducciones en el numero de combinaciones. El modelamiento como grafo permitió encontrar componentes conexas que reflejaron la independencia que tienen ciertas combinaciones con respecto a otras, permitiendo una separación inicial en problemas mas pequeños que posteriormente son adicionados para componer la solucion general.
+
+La mejora impactó de una manera considerable en los tiempos reduciendolos hasta diez veces, al igual que el numero de calculos que se demoraban más de quince segundos. Incluso se encontraron alumnos ya egresados con la posibilidad de tener una mejor nota debido al nuevo calculo. Aun así, no se logró uno de los requisitos de calidad del objetivo principal para la carrera Ingeniería Civil Industrial debido a la oferta de ramos electivos que posee. La gran mayoria son de cinco creditos (la mitad de lo que es común) produciendo que un alumno promedio deba aprobar el doble de ramos que si fuese de otra carrera afectando negativamente al algoritmo. Por lo anterior, se complementó la conclusión con la necessidad de herramientas que sincronicen los esfuerzos en la formación de innovaciones dentro de los planes de estudios por parte de los departamentos con tanto el área de gestion por parte de la Escuela como del área tecnologica competente como lo es el ADI.
+}
 \end{abstract}
 
 \begin{dedicatoria} % opcional
-"... Gracias a los que me han dado el apoyo necesario, sigo,\\
-gracias a ti por estar conmigo (por querer),\\ 
-y a tantos más..."
+``... Te escribí todas las noches, lector,\\ para dejarte entrar en mi mundo, porque\\ no lo conoces, pero eres parte de él.\\
+\ \\ Y también te escribí a ti.''\\
+\ \\
+{\tiny \textbf{Francisca Solar,} \#100writingdays}
 \end{dedicatoria}
 
 \begin{thanks} % opcional
-\lipsum[1-2]
+Gracias a mi familia, a mis padres y hermana por guiarme hacía este camino desde pequeño e inculcarme la importancia del saber. También a Daniela y nuestra hija Emily, por la comprensión y tolerancia, y por ser la alegría al llegar a casa siendo el motor de motivación en estos ultimos años.
+
+Gracias al ADI, a Manuel por ser un apoyo importante para esta memoria preocupandose de manera desinteresada. También a Javier, por la oportunidad y la visión, si no fuera por él quizas donde hubiese encontrado mi lugar en la universidad (o fuera de ella). A Victor y al equipo entero en realidad, por confiar y hacerme parte, por aceptarme y aguantarme.
+
+Gracias a Patricio Poblete, profesor guía de esta memoria, por la confianza, dedicación y el tiempo regalado. A mis amigos Fernando, Mauricio y Paulina, por la compañia en la U por este largo proceso y por la preocupación en mi desarrollo.
+
+Finalmente, quiero agradecer a todas esas personas que han compartido un pequeño momento de sus vidas conmigo ya que quizas sin saberlo también aportaron a mi crecimiento y contribuyeron en esta memoria. Además, gracias a tí lector por tan solo leerme.
+
 \end{thanks}
 \cleardoublepage
 

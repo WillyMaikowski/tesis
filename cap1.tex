@@ -71,13 +71,20 @@ Por todo lo antes descrito, una correcta solución debe velar por satisfacer dos 
 
 Si bien actualmente se tiene una mejora considerable de lo que es la titulación, en lo que respecta a la propuesta de recuento de unidades docentes, aun se sigue con un procedimiento de chequeo manual. Durante el tiempo ésta se ha ido acortando cada vez más pero un desarrollo mayor en esa área significaría el punto culmine logrando obtener resultados confiables y en un tiempo considerable.
 
-Además, el desafío es de gran envergadura lo que incentiva solucionarlo. Como se mencionó en los Antecedentes, hubieron dos memorias en donde se intento llegar a una mejora automática a este proceso. En \cite{bib1} \textbf{explicar más en detalle que se hizo en esa memoria}. 
+Además, el desafío es de gran envergadura lo que incentiva solucionarlo. Como se mencionó en los Antecedentes, hubieron dos memorias en donde se intento llegar a una mejora automática a este proceso. En \cite{bib1} el objetivo principal era lograr un sistema lo más automatizado posible pero solo se logró una definición teórica de él. Aun así, se avanzó ampliamente en la definición observando el proceso realizado por el Secretario de Estudios que mediante a planillas lograba evaluar el avance curricular del alumno. Además, en este trabajo se propusieron requisitos funcionales para una aplicación final ya que se llevo a cabo un estudio de los decretos universitarios desde 1985. 
 
 Por otra parte, en \cite{bib2} se tenia presente la anterior memoria por lo que se logro avanzar en la automatización pero a partir de una perspectiva de apoyo netamente y no de reemplazar parte del proceso. Esto quiere decir que se construyó un sitio en el que la persona encargada debía seguir los mismo pasos que si lo hiciera con papel. Si bien se podía centralizar datos y se contaba con una base de datos donde se guardaban los registros de recuento, no logró mayor mejora.
 
-\textbf{imagen del sitio de la memoria 2}
+\begin{landscape}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.21]{imagenes/4}
+		\caption{Planilla base ocupada para el desarrollo de la memoria descrita en \cite{bib2}}
+		\label{tesis_chano}
+	\end{figure}
+\end{landscape}
 
-\textbf{Explicar más en detalle memoria 2}
+En la figura \ref{tesis_chano} se puede observar gran parte del trabajo realizado en \cite{bib2} ya que tomando como base las planillas del Secretario de Estudios se fue construyendo una plataforma similar de manera que se evitaran los errores humanos de tipeo. Aun así, la lógica aun estaba a cargo de una persona que debia corroborar la información y realizar cambios en la ubicación de los ramos hasta lograr una combinación factible.
 
 Finalmente, el problema (que se abordará de manera mas profunda posteriormente) consiste en asignar ramos dentro de planes de manera de encontrar una combinación que satisfaga las dos condiciones mencionadas en los antecedentes. Este tipo de problemas, de calcular múltiples combinaciones, puede tomar mucho tiempo. Aun así, dado el entendimiento del caso que se ha hecho y los intentos previos de automatización, se puede lograr una reducción ad-hoc que permita lograr el desafío y por ende motiva aun más la búsqueda. 
 
