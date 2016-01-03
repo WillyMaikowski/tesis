@@ -2,9 +2,9 @@
 
 Para validar la mejora en los tiempos y resultados efectuados se debe contrastar la ejecución del recuento de UD's para un grupo de alumnos con sus respectivas carreras inscritas. Para ello se poseen los datos de todos los estudiantes egresados y activos al año 2015.
 
-Aun así, debido a cuando se implementó la versión anterior y la carga de datos paulatina que se ha hecho, existen datos incompletos para una parte de los alumnos antiguos. Es por ello que, para chequear el real cumplimiento de todos los elementos hablados en esta memoria, se ocuparan solo los alumnos inscritos en las versiones mas actualizadas de cada carrera.
+Aun así, debido a que cuando se implementó la versión anterior y la carga de datos paulatina que se ha hecho, existen datos incompletos para una parte de los alumnos antiguos. Es por ello que, para chequear el real cumplimiento de todos los elementos hablados en esta memoria, se ocuparán solo los alumnos inscritos en las versiones más actualizadas de cada carrera.
 
-Lo anterior implica el calculo del recuento de unidades docentes de aproximadamente 4300 alumnos divididos en 12 planes distintos. Para este calculo se realizó un script que desde la base datos obtuviera todos los alumnos anteriormente descritos para luego, dividiendolos por carrera, ejecutar el algoritmo. Finalmente, se creo un archivo con el resultado de cada una de las carreras.
+Lo anterior implica el cálculo del recuento de unidades docentes de aproximadamente 4300 alumnos divididos en 12 planes distintos. Para este cálculo se realizó un script que desde la base datos obtuviera todos los alumnos anteriormente descritos para luego, dividiéndolos por carrera, ejecutar el algoritmo. Finalmente, se creó un archivo con el resultado de cada una de las carreras.
 
 \begin{table}[!h]
 	\centering
@@ -28,7 +28,7 @@ Lo anterior implica el calculo del recuento de unidades docentes de aproximadame
 	\label{tabla:1}
 \end{table}
 
-El procedimiento se realizó tanto como para el algoritmo antiguo como para el nuevo. De esta manera, es posible contrastar ambos resultados mediante las variables de tiempo con sus respectivos promedios y mediana, y a traves de la cantidad de casos con tiempo mayor a 15 segundos (los casos que pueden ocasionar falsos negativos). Hay que tener en consideración en la ejecución de todos los recuentos que si bien tiene un tiempo prolongado, tambien realiza un uso exhaustivo de memoria y, por ende, se debia limpiar cualquier fuga que pudiese existir entre cada uno de ellos de manera de permitir la normal ejecución sin saturar el servidor. Además, se descartaron las opciones de realizar una asignación inicial de los ramos con un candidato debido a que provocó desde un inicio resultados de mayor tiempo confirmando que ordenar los ramos de valor decreciente es la mejor opción, y la alternativa del cache debido a que si bien reducía en cierta cantidad el tiempo, este se veia perjudicado por el calculo del elemento identificador (hash) de cada estado.  
+El procedimiento se realizó tanto para el algoritmo antiguo como para el nuevo. De esta manera, es posible contrastar ambos resultados mediante las variables de tiempo con sus respectivos promedios y mediana, y a través de la cantidad de casos con tiempo mayor a 15 segundos (los casos que pueden ocasionar falsos negativos). Hay que tener en consideración en la ejecución de todos los recuentos que si bien tiene un tiempo prolongado, también realiza un uso exhaustivo de memoria y, por ende, se debía limpiar cualquier fuga que pudiese existir entre cada uno de ellos de manera de permitir la normal ejecución sin saturar el servidor. Además, se descartaron las opciones de realizar una asignación inicial de los ramos con un candidato, debido a que provocó desde un inicio resultados de mayor tiempo confirmando que ordenar los ramos de valor decreciente es la mejor opción, y la alternativa del caché no fue suficiente porque se veía perjudicado por el cálculo del elemento identificador (hash) de cada estado.  
 
 \begin{table}[!h]
 	\centering
@@ -48,11 +48,11 @@ El procedimiento se realizó tanto como para el algoritmo antiguo como para el nu
 		6 & 530 & 1,59584 & 16 & 0,001 & - & 0,141\\\hline
 		16 & 1091 & 4,95989 & 297 & 0,001 & - & 15,007\\\hline
 	\end{tabular}
-	\caption{Tabla de resultados de la heuristica antigua}
+	\caption{Tabla de resultados de la heurística antigua.}
 	\label{tabla:2}
 \end{table}
 
-En la tabla \ref{tabla:2} se presentan los resultados de la ejecución de la heuristica antigua dividida por codigo de carrera. En los casos donde no se adiciona el tiempo maximo de ejecucion es debido a que existen elementos sobre los 15 segundos y, por lo tanto, no se posee un registro de aquel tiempo. Además, hay que considerar que los promedios estan reduciendo a 15 segundos los casos en que ese tiempo es mucho mayor, y por ende se ven reducidas las medias. Aun así se agrego el calculo de la mediana para evidenciar la tendencia del algoritmo en todos los casos.
+En la tabla \ref{tabla:2} se presentan los resultados de la ejecución de la heurística antigua dividida por código de carrera. En los casos donde no se adiciona el tiempo máximo de ejecución es debido a que existen elementos sobre los 15 segundos y, por lo tanto, no se posee un registro de aquel tiempo. Además, hay que considerar que los promedios están reduciendo a 15 segundos los casos en que ese tiempo es mucho mayor, y por ende se ven reducidas las medias. Aun así se agregó el cálculo de la mediana para evidenciar la tendencia del algoritmo en todos los casos.
 
 \begin{table}[!h]
 	\centering
@@ -72,18 +72,18 @@ En la tabla \ref{tabla:2} se presentan los resultados de la ejecución de la heur
 		6 & 530 & 0,30912 & 1 & 0,001 & - & 0,058\\\hline
 		16 & 1091 & 3,94389 & 201 & 0,001 & - & 4,197\\\hline
 	\end{tabular}
-	\caption{Tabla de resultados del algoritmo nuevo}
+	\caption{Tabla de resultados del algoritmo nuevo.}
 	\label{tabla:3}
 \end{table}
 
 
-En cambio, en la tabla \ref{tabla:3}, se entregan los resultados para la ejecución del algoritmo nuevo. Si bien en estos casos se poseia un valor maximo para todos los casos se decidió normalizar los valores mayores a 15 segundos al igual que la heuristica antigua debido a la necesidad de que los promedios fueran comparables.
+En cambio, en la tabla \ref{tabla:3}, se entregan los resultados para la ejecución del algoritmo nuevo. Si bien en estos casos se poseía un valor máximo para todos los casos, se decidió normalizar los valores mayores a 15 segundos al igual que la heurística antigua debido a la necesidad de que los promedios fueran comparables.
 
-Las carreras fueron ordenadas por la cantidad de alumnos de manera creciente para ambos casos. Comparativamente ente las dos tablas se puede observan un gran avance con la implementación nueva reduciendo en 9 veces los promedios de tiempo en la mayoria de los casos a excepcion de la carrera Ingeniería Civil Industrial (código 16). 
+Las carreras fueron ordenadas por la cantidad de alumnos de manera creciente para ambos casos. Al comparar ambas tablas se puede observan un gran avance con la implementación nueva reduciendo en 9 veces los promedios de tiempo en la mayoría de los casos, a excepcion de la carrera Ingeniería Civil Industrial (código 16). 
 
-Para poder explicar el comportamiento de la carrera Ingeniería Civil Industrial debemos acudir al grafo realizado en la sección ``Solución'' pero para el caso de este plan. En la figura \ref{grafo_industrias} se puede observar como se generan componentes conexas correctamente como el nuevo algoritmo predijo, aun así, si se compara con el grafo de la figura \ref{grafo_general}, se pueden evidenciar dos grandes diferencias. Primero, las conexiones de la componente conexa mas grande esta realizada por ramos que comparten todos los planes. Es decir, no existe diferenciación o discriminación entre los dos planes que estan en esa componente. Estos planes son ``Licenciatura Electivos Industrial'' y ``Ingeniería Civil Industrial v3, Electivos'', y si bien no necesariamente implica un mal modelamiento de los planes de los ramos ya que es una opcion viable dentro de todas las alternativas, como opinion personal se considera que pierde el sentido diferenciar en dos planes distintos algo que en la pratica no se diferencia perdiendo la oportunidad de, por ejemplo, aprovechar realizar planes con distintas profundidades académicas.
+Para poder explicar el comportamiento de la carrera Ingeniería Civil Industrial debemos acudir al grafo realizado en la sección ``Solución'', pero para el caso de este plan. En la figura \ref{grafo_industrias} se puede observar cómo se generan componentes conexas correctamente como el nuevo algoritmo predijo, aun así, si se compara con el grafo de la figura \ref{grafo_general}, se pueden evidenciar dos grandes diferencias. Primero, las conexiones de la componente conexa más grande está realizada por ramos que comparten todos los planes. Es decir, no existe diferenciación o discriminación entre los dos planes que están en esa componente. Estos planes son ``Licenciatura Electivos Industrial'' e ``Ingeniería Civil Industrial v3, Electivos'', y si bien no necesariamente implica un mal modelamiento de los planes de los ramos, ya que es una opción viable dentro de todas las alternativas, como opinión personal se considera que pierde el sentido diferenciar en dos planes distintos algo que en la prática no se diferencia perdiendo la oportunidad de, por ejemplo, aprovechar realizar planes con distintas profundidades académicas.
 
-Por otra parte, la segunda razón por la cual el comportamiento en esa carrera es mas complejo para el algoritmo tiene que ver con el tamaño de la componente conexa mayor donde se observa cerca del doble de ramos complejizando el orden desde $3^{10}$ a $3^{20}$. La causa de esto es la cantidad de Unidades Docentes que poseen los ramos electivos en Industrias ya que poseen tan solo 5 UD's siendo lo normal de un ramo 10 UD's. Esto es debido a que sus ramos o poseen menor profundidad o son dictados con la misma exigencia que un ramo común pero en mitades de semestre construyendose periodos ficticios. Es decir, si bien el periodo academico de un semestre normal implica 15 semanas, estos cursos son dictados solo por 7 semanas ya sea desde el comienzo o iniciando retrasadamente desde la octava semana.
+Por otra parte, la segunda razón por la cual el comportamiento en esa carrera es más complejo para el algoritmo tiene que ver con el tamaño de la componente conexa mayor, donde se observa cerca del doble de ramos complejizando el orden desde $3^{10}$ a $3^{20}$. La causa de esto es la cantidad de Unidades Docentes que poseen los ramos electivos en Industrias, ya que poseen tan solo 5 UD's, siendo lo normal de un ramo 10 UD's. Esto se debe a que sus ramos o poseen menor profundidad o son dictados con la misma exigencia que un ramo común, pero en mitades de semestre construyéndose periodos ficticios. Es decir, si bien el período académico de un semestre normal implica 15 semanas, estos cursos son dictados sólo por 7 semanas, ya sea desde el comienzo o iniciando retrasadamente desde la octava semana.
 
 \begin{landscape}
 	\begin{figure}[!h]
@@ -94,7 +94,7 @@ Por otra parte, la segunda razón por la cual el comportamiento en esa carrera es
 	\end{figure}
 \end{landscape}
 
-Finalmente, si no se considera la carrera mencionada anteriormente se logró reducir en 10 veces la cantidad de elementos que son calculados en más de 15 segundos. Además, considerando la totalidad de elementos se logró encontrar 64 falsos negativos siendo el $25\%$ de los computos reducidos desde 15 segundos más, hacia un valor menor. Además, se encontró que cerca del $4\%$ de los candidatos a mejorar sus recuentos presentaba una nota mayor a la calculada y por ende, era probable que podria titularse con una nota mayor o, incluso, con una distinción superior.
+Finalmente, si no se considera la carrera antes mencionada, se logró reducir en 10 veces la cantidad de elementos que son calculados en más de 15 segundos. Además, considerando la totalidad de elementos, se logró encontrar 64 falsos negativos siendo el $25\%$ de los cómputos reducidos desde 15 segundos más, hacia un valor menor. Además, se encontró que cerca del $4\%$ de los candidatos a mejorar sus recuentos presentaba una nota mayor a la calculada y por ende, era probable que podría titularse con una nota mayor o, incluso, con una distinción superior.
 
 
 
